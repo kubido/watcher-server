@@ -2,7 +2,8 @@ const socket = io('http://localhost:50001');
 
 socket.emit('admin', socket.id)
 
-$('#tree-view').jstree({ 
+$('#tree-view')
+  .jstree({ 
     "core" : {
       "themes" : { "stripes" : true },
       "data" :  []
@@ -17,14 +18,21 @@ $('#tree-view').jstree({
       "contextmenu", "dnd", "search",
       "state", "types", "wholerow"
     ]
+  })
 
-  });
+  .on("changed.jstree", function (e, data) {
+    try{
+      let filePath = data.node.li_attr.path
+      console.log('-------->',filePath);
+    }catch(e){
+      console.log('--------> empty path');
+    }
+  })
 
 let events = ['add', 'change', 'ready', 'unlink']
 
 events.forEach( function(eventName){
   socket.on(eventName, function(data){
-    alert('on', eventName)
     updateData(data)
   })  
 })

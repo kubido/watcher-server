@@ -15,10 +15,11 @@ io.on('connection', function(client){
   let events = ['add', 'change', 'ready', 'unlink']
 
   events.forEach( function(eventName){
-    socket.on(eventName, function(data){
+    client.on(eventName, function(data){
+      console.log('---------------------masuk sini')
       console.log('--------------:', eventName, client.id)
       client.to(adminId).emit(eventName, data)
-    })  
+    })
   })
 
   client.on('admin', function(){

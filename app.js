@@ -48,11 +48,4 @@ app.listen(port, ()=>{
   console.log('-----------server started at port', port)
 })
 
-io.listen(50001)
-
-
-[
-  {name: "A", pos: 4},
-  {name: "B", pos: 0},
-  {name: "C", pos: 0}
-]
+io.listen(99991)

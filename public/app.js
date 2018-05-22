@@ -1,4 +1,4 @@
-const socket = io('http://localhost:50001');
+const socket = io('http://104.251.212.128:99991');
 
 socket.emit('admin', socket.id)
 

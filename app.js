@@ -1,6 +1,7 @@
 const express = require('express')
 const app   = express()
 const port  = 5000
+const fs    = require('fs')
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
@@ -25,6 +26,11 @@ io.on('connection', function(client){
   client.on('admin', function(){
     adminId = client.id
     console.log('------admin:', client.id)
+  })
+
+  client.on('fileReadRequest', function(path){
+    let fileStr = fs.readFileSync(path, 'utf8')
+    client.emit('fileReadResponse', fileStr)
   })
 
 });

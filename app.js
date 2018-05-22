@@ -29,8 +29,12 @@ io.on('connection', function(client){
   })
 
   client.on('fileReadRequest', function(path){
-    let fileStr = fs.readFileSync(path, 'utf8')
-    client.emit('fileReadResponse', fileStr)
+    try{
+      let fileStr = fs.readFileSync(path, 'utf8')
+      client.emit('fileReadResponse', fileStr)
+    }catch(e){
+      console.log('-------path', path)
+    }
   })
 
 });

@@ -6,7 +6,10 @@ $('#tree-view')
   .jstree({ 
     "core" : {
       "themes" : { "stripes" : true },
-      "data" :  []
+      "data" :  [{
+        text: 'Live Code',
+        children: []
+      }]
     },
     "types" : {
       "file" : {
@@ -56,7 +59,16 @@ function previewFileAndHighlight(fileStr){
 }
 
 function updateData(data){
-  $('#tree-view').jstree(true).settings.core.data = data;
-  debugger
-  $('#tree-view').jstree(true).refresh();
+  let instance = $('#tree-view').jstree(true)
+  let children = instance.settings.core.data[0].children
+  let sessionNames = children.map( child => child.text)
+  let sessionExists = sessionNames.includes(data.text)
+  
+  if(sessionExists){
+    data = children.map( tree => (tree.text == data.text) ? data : tree)
+    children = data;
+  }else{
+    children.push(data);
+  }
+  instance.refresh();
 }

@@ -25,7 +25,7 @@ $('#tree-view')
       let filePath = data.node.li_attr.path
       socket.emit('fileReadRequest', filePath)
     }catch(e){
-      console.log('---------> empty path')
+      console.log('empty path')
     }
   })
 
@@ -47,9 +47,7 @@ socket.on('fileReadResponse', function(fileStr){
 function previewFileAndHighlight(fileStr){
   $('#file-content').html(`
     <pre>
-      <code>
-        ${fileStr}
-      </code>
+      <code>${fileStr}</code>
     </pre>
   `)
   $('pre code').each(function(i, block) {
@@ -59,5 +57,6 @@ function previewFileAndHighlight(fileStr){
 
 function updateData(data){
   $('#tree-view').jstree(true).settings.core.data = data;
+  debugger
   $('#tree-view').jstree(true).refresh();
 }
